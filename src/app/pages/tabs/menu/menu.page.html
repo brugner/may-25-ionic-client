@@ -1,0 +1,46 @@
+<ion-header>
+    <app-toolbar title="Menú" showNotificationsButton="true" showBackButton="true"></app-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-title class="small-caps" size="large">Menu</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+
+    <ion-list class="ion-padding">
+        <div class="ad mb-10">
+            PUBLICITE AQUÍ
+        </div>
+
+        <ion-button routerLink="/profile" class="mb-10" expand="full" size="large" fill="clear">
+            <ion-icon name="person" slot="start"></ion-icon> Perfil
+        </ion-button>
+
+        <ion-button routerLink="/trips/mine" class="mb-10" expand="full" size="large" fill="clear">
+            <ion-icon name="map" slot="start"></ion-icon> Mis viajes
+        </ion-button>
+
+        <ion-button routerLink="/cars/my-cars" class="mb-10" expand="full" size="large" fill="clear">
+            <ion-icon name="car" slot="start"></ion-icon> Mis autos
+        </ion-button>
+
+        <ion-button routerLink="/alerts" class="mb-10" expand="full" size="large" fill="clear">
+            <ion-icon name="alarm-outline"></ion-icon> Alertas
+        </ion-button>
+
+        <ion-button routerLink="/account" class="mb-10" expand="full" size="large" fill="clear">
+            <ion-icon name="key" slot="start"></ion-icon> Cuenta
+        </ion-button>
+
+        <ion-button routerLink="/help" class="mb-10" expand="full" size="large" fill="clear">
+            <ion-icon name="help-circle-outline" slot="start"></ion-icon> Ayuda
+        </ion-button>
+
+        <ion-button (click)="logout()" class="mb-10" expand="full" size="large" fill="clear" color="danger">
+            <ion-icon name="exit" slot="start"></ion-icon> Cerrar sesión
+        </ion-button>
+    </ion-list>
+</ion-content>

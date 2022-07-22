@@ -1,0 +1,60 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title class="small-caps">Crear cuenta</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row class="ion-justify-content-center">
+            <ion-col>
+
+                <div class="title">
+                    <h1>{{ title }}</h1>
+                    <h4>{{ subtitle }}</h4>
+                </div>
+
+                <form [formGroup]="registerForm" (ngSubmit)="register()">
+                    <ion-item lines="full" class="ion-margin-bottom">
+                        <ion-label position="floating">Email</ion-label>
+                        <ion-input type="text" required maxlength="50" formControlName="email"></ion-input>
+                    </ion-item>
+
+                    <div formGroupName="passwords">
+                        <ion-item lines="full" class="ion-margin-bottom">
+                            <ion-label position="floating">Contraseña</ion-label>
+                            <ion-input type="password" required maxlength="50" formControlName="password"></ion-input>
+                        </ion-item>
+
+                        <ion-item lines="full" class="ion-margin-bottom">
+                            <ion-label position="floating">Repetir contraseña</ion-label>
+                            <ion-input type="password" required maxlength="50" formControlName="repeatPassword"></ion-input>
+                        </ion-item>
+                    </div>
+
+                    <ion-row>
+                        <ion-col>
+                            <ion-button type="submit" color="primary" expand="block" [disabled]="!registerForm.valid">Crear</ion-button>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col class="ion-text-center">
+                            <p>— o —</p>
+                            <ion-button color="light" expand="block" (click)="registerGoogle()">
+                                <ion-icon name="logo-google" slot="start"></ion-icon> Google
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="mt-20">
+                        <ion-col class="ion-text-end">
+                            <a [routerLink]="['/auth/login']" class="small-text">Ya tengo una cuenta, quiero entrar</a>
+                        </ion-col>
+                    </ion-row>
+                </form>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

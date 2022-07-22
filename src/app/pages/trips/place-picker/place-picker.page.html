@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title class="small-caps">{{title}}</ion-title>
+        <ion-buttons slot="primary">
+            <ion-button (click)="returnPlace()">
+                <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-item>
+        <input #search type="text" class="gp-search-bar" (keydown.enter)="$event.preventDefault()" placeholder="Buscar.." autocorrect="off" autocapitalize="off" spellcheck="off">
+    </ion-item>
+
+    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [restriction]="countryRestriction" [maxZoom]="16" [minZoom]="5" [streetViewControl]="false">
+        <agm-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true" [iconUrl]="icon" (dragEnd)="markerDragEnd($event)"></agm-marker>
+    </agm-map>
+</ion-content>
+
+<ion-item>
+    <ion-text class="hint">Escribe para buscar y/o mueve el marcador hasta encontrar el lugar más aproximado</ion-text>
+</ion-item>

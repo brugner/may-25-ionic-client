@@ -1,0 +1,70 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title class="small-caps" class="small-caps">Opiniones</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-title class="small-caps" size="large">Opiniones</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-tabs>
+        <ion-tab-bar slot="top">
+            <ion-tab-button (click)="asDriver()">
+                <ion-icon name="car" [color]="asDriverColor"></ion-icon>
+                <ion-label [color]="asDriverColor">Como conductor</ion-label>
+            </ion-tab-button>
+
+            <ion-tab-button (click)="asPassenger()">
+                <ion-icon name="person" [color]="asPassengerColor"></ion-icon>
+                <ion-label [color]="asPassengerColor">Como pasajero</ion-label>
+            </ion-tab-button>
+        </ion-tab-bar>
+    </ion-tabs>
+
+    <div class="mb-75"></div>
+
+    <h1 class="ion-text-center small-caps">{{ratings.user.name}}</h1>
+
+    <div *ngIf="asDriverVisible">
+        <h1 class="ion-text-center">
+            {{ratings.starsAsDriver | number:'1.1-1'}} <ion-icon name="star"></ion-icon> <sup class="ml-5">({{ratings.ratingsAsDriver.length}})</sup>
+        </h1>
+
+        <app-ratings-list [ratings]="ratings.ratingsAsDriver"></app-ratings-list>
+
+        <div *ngIf="ratings.ratingsAsDriver.length === 0">
+            <ion-card>
+                <ion-card-content>
+                    <ion-card-subtitle class="mb-20">Aún no hay ninguna opinión sobre esta persona como conductor.</ion-card-subtitle>
+                </ion-card-content>
+            </ion-card>
+        </div>
+    </div>
+
+    <div *ngIf="asPassengerVisible">
+        <h1 class="ion-text-center">
+            {{ratings.starsAsPassenger | number:'1.1-1'}} <ion-icon name="star"></ion-icon> <sup class="ml-5">({{ratings.ratingsAsPassenger.length}})</sup>
+        </h1>
+
+        <app-ratings-list [ratings]="ratings.ratingsAsPassenger"></app-ratings-list>
+
+        <div *ngIf="ratings.ratingsAsPassenger.length === 0">
+            <ion-card>
+                <ion-card-content>
+                    <ion-card-subtitle class="mb-20">Aún no hay ninguna opinión sobre esta persona como pasajero.</ion-card-subtitle>
+                </ion-card-content>
+            </ion-card>
+        </div>
+    </div>
+</ion-content>

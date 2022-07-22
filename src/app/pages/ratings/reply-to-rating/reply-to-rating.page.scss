@@ -1,0 +1,20 @@
+blockquote {
+    font-style: italic;
+    font-size: large;
+    margin: 0;
+    text-align: justify;
+}
+
+.open-quote {
+    font-size: xx-large;
+    margin-left: 2px;
+    margin-right: 2px;
+    line-height: 1;
+}
+
+.close-quote {
+    font-size: xx-large;
+    margin-left: 2px;
+    margin-right: 2px;
+    line-height: 0;
+}

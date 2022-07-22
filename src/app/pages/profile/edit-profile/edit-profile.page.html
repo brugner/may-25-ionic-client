@@ -1,0 +1,164 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="small-caps">Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title class="small-caps" size="large">Perfil</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Ficha del viajero</ion-card-title>
+        <ion-card-subtitle class="ion-text-justify">
+          Mantén un perfil actualizado para aumentar la confianza de los otros viajeros. Mientras más datos completes, mejor.
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <div class="ion-text-center">
+          <ion-avatar (click)="takePhoto()">
+            <img [src]="profilePicture" alt="Imágen de perfil">
+          </ion-avatar>
+          <ion-input type="email" class="email" maxlength="50" formControlName="email"></ion-input>
+        </div>
+
+        <ion-item lines="full" class="ion-margin-bottom">
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input type="text" required maxlength="50" formControlName="firstName"></ion-input>
+        </ion-item>
+
+        <ion-item lines="full" class="ion-margin-bottom">
+          <ion-label position="floating">Apellido</ion-label>
+          <ion-input type="text" required maxlength="50" formControlName="lastName"></ion-input>
+        </ion-item>
+
+        <ion-item lines="full" class="ion-margin-bottom">
+          <ion-label position="floating">Fecha de nacimiento</ion-label>
+          <ion-datetime [doneText]="'Seleccionar'" [cancelText]="'Cancelar'" displayFormat="D de MMMM de YYYY" [max]="maxBirthdayDate" [monthNames]="'enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre'" placeholder="Toca para elegir" required formControlName="birthday"></ion-datetime>
+        </ion-item>
+
+        <ion-item lines="full" class="ion-margin-bottom">
+          <ion-label position="floating">Género</ion-label>
+          <ion-select placeholder="Seleccionar" interface="action-sheet" cancelText="Cancelar" okText="Seleccionar" formControlName="gender">
+            <ion-select-option value="F">Masculino</ion-select-option>
+            <ion-select-option value="M">Femenino</ion-select-option>
+            <ion-select-option value="O">Otro</ion-select-option>
+            <ion-select-option value="N">Prefiero no decir</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <div class="ion-margin-bottom">
+          <ion-item lines="full">
+            <ion-label position="floating">Bio</ion-label>
+            <ion-textarea required minlength="100" maxlength="300" rows="3" placeholder="Escribe una breve presentación sobre ti" formControlName="bio"></ion-textarea>
+          </ion-item>
+
+          <ion-text *ngIf="bio.invalid && bio.errors.minlength" color="danger" class="ion-padding">
+            Escribe al menos 100 caracteres
+          </ion-text>
+        </div>
+
+        <ion-card-title class="mt-30">
+          <ion-icon name="car"></ion-icon> Durante el viaje
+        </ion-card-title>
+        <ion-card-subtitle class="ion-text-justify">
+          Arriba del auto, ¿cómo te llevas con la conversación? ¿Preferís la música?, ¿Te molestan las mascotas en el auto? ¿Y el cigarrillo?
+        </ion-card-subtitle>
+
+        <ion-item>
+          <ion-text>Conversar</ion-text>
+        </ion-item>
+
+        <ion-item class="mb-20">
+          <ion-segment value="5" formControlName="talk">
+            <ion-segment-button value="1">
+              <ion-icon name="heart-dislike"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="5">
+              <ion-icon name="heart-half"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="10">
+              <ion-icon name="heart"></ion-icon>
+            </ion-segment-button>
+          </ion-segment>
+        </ion-item>
+
+        <ion-item>
+          <ion-text>Música</ion-text>
+        </ion-item>
+
+        <ion-item class="mb-20">
+          <ion-segment value="5" formControlName="music">
+            <ion-segment-button value="1">
+              <ion-icon name="heart-dislike"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="5">
+              <ion-icon name="heart-half"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="10">
+              <ion-icon name="heart"></ion-icon>
+            </ion-segment-button>
+          </ion-segment>
+        </ion-item>
+
+        <ion-item>
+          <ion-text>Fumar</ion-text>
+        </ion-item>
+
+        <ion-item class="mb-20">
+          <ion-segment value="5" formControlName="smoking">
+            <ion-segment-button value="1">
+              <ion-icon name="heart-dislike"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="5">
+              <ion-icon name="heart-half"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="10">
+              <ion-icon name="heart"></ion-icon>
+            </ion-segment-button>
+          </ion-segment>
+        </ion-item>
+
+        <ion-item>
+          <ion-text>Mascotas</ion-text>
+        </ion-item>
+
+        <ion-item class="mb-20">
+          <ion-segment value="5" formControlName="pets">
+            <ion-segment-button value="1">
+              <ion-icon name="heart-dislike"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="5">
+              <ion-icon name="heart-half"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="10">
+              <ion-icon name="heart"></ion-icon>
+            </ion-segment-button>
+          </ion-segment>
+        </ion-item>
+
+        <ion-button type="submit" expand="block" [disabled]="!profileForm.valid">Actualizar perfil</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </form>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-button fill="outline" expand="block" color="tertiary" routerLink="/profile/me">Ver mi perfil público</ion-button>
+      <ion-button fill="outline" expand="block" color="tertiary" routerLink="/cars/my-cars">Mis autos</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

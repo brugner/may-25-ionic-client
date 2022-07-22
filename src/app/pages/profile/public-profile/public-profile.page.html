@@ -1,0 +1,90 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title class="small-caps" class="small-caps">Perfil público</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-title class="small-caps" size="large">Perfil público</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-card color="light">
+        <ion-card-content>
+            <div class="mb-20" style="text-align: -webkit-center;">
+                <ion-avatar class="mb-20">
+                    <img [src]="getProfilePicture(profile.picture)" alt="Imágen de perfil">
+                </ion-avatar>
+
+                <ion-card-title class="small-caps">{{profile.name}}</ion-card-title>
+                <ion-card-subtitle class="mb-10">{{moment().diff(profile.birthday, 'years')}} años</ion-card-subtitle>
+                <ion-card-subtitle class="ion-text-justify">
+                    {{profile.bio}}
+                </ion-card-subtitle>
+            </div>
+
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        <ion-card-title class="ion-text-center small-caps">Reputación</ion-card-title>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col class="ion-text-center">
+                        <span class="font-large">{{starsAsDriver | number:'1.1-1'}} <ion-icon name="star"></ion-icon></span> <sup>({{totalRatingsAsDriver}})</sup>
+                        <p class="font-large">Conductor</p>
+                    </ion-col>
+                    <ion-col class="ion-text-center">
+                        <span class="font-large">{{starsAsPassenger | number:'1.1-1'}} <ion-icon name="star"></ion-icon></span> <sup>({{totalRatingsAsPassenger}})</sup>
+                        <p class="font-large">Pasajero</p>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-button expand="block" (click)="goToRatings()">Ver todas las opiniones<ion-icon slot="end" name="arrow-forward"></ion-icon>
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+            <ion-grid class="mt-20">
+                <ion-row>
+                    <ion-col class="ion-text-center">
+                        <ion-icon name="{{talkIcon}}" class="font-x-large"></ion-icon>
+                        <br>
+                        Conversar
+                    </ion-col>
+
+                    <ion-col class="ion-text-center">
+                        <ion-icon name="{{musicIcon}}" class="font-x-large"></ion-icon>
+                        <br>
+                        Música
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col class="ion-text-center">
+                        <ion-icon name="{{smokingIcon}}" class="font-x-large"></ion-icon>
+                        <br>
+                        Fumar
+                    </ion-col>
+
+                    <ion-col class="ion-text-center">
+                        <ion-icon name="{{petsIcon}}" class="font-x-large"></ion-icon>
+                        <br>
+                        Mascotas
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

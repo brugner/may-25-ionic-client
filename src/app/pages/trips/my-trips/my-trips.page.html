@@ -1,0 +1,83 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title class="small-caps">Mis viajes</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-title class="small-caps" size="large">Mis viajes</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-tabs>
+        <ion-tab-bar slot="top">
+            <ion-tab-button (click)="asDriver()">
+                <ion-icon name="car" [color]="asDriverColor"></ion-icon>
+                <ion-label [color]="asDriverColor">Como conductor</ion-label>
+                <ion-badge color="primary">{{myTrips.asDriver.length}}</ion-badge>
+            </ion-tab-button>
+
+            <ion-tab-button (click)="asPassenger()">
+                <ion-icon name="person" [color]="asPassengerColor"></ion-icon>
+                <ion-label [color]="asPassengerColor">Como pasajero</ion-label>
+                <ion-badge color="primary">{{myTrips.asPassenger.length}}</ion-badge>
+            </ion-tab-button>
+
+            <ion-tab-button (click)="asSeatRequester()">
+                <ion-icon name="send" [color]="asSeatRequesterColor"></ion-icon>
+                <ion-label [color]="asSeatRequesterColor">Solicitudes activas</ion-label>
+                <ion-badge color="primary">{{myTrips.asSeatRequester.length}}</ion-badge>
+            </ion-tab-button>
+        </ion-tab-bar>
+    </ion-tabs>
+
+    <div class="mb-75"></div>
+
+    <div *ngIf="asDriverVisible">
+        <app-trip-list [trips]="myTrips.asDriver"></app-trip-list>
+
+        <div *ngIf="myTrips.asDriver.length === 0">
+            <ion-card>
+                <ion-card-content>
+                    <ion-card-subtitle class="mb-20">Aún no tienes viajes como conductor. Puedes empezar por publicar tu primer viaje aquí.</ion-card-subtitle>
+                    <ion-button expand="block" color="primary" routerLink="/tabs/publish">Publicar un viaje</ion-button>
+                </ion-card-content>
+            </ion-card>
+        </div>
+    </div>
+
+    <div *ngIf="asPassengerVisible">
+        <app-trip-list [trips]="myTrips.asPassenger"></app-trip-list>
+
+        <div *ngIf="myTrips.asPassenger.length === 0">
+            <ion-card>
+                <ion-card-content>
+                    <ion-card-subtitle class="mb-20">Aún no tienes viajes como pasajero. Puedes empezar por buscar un viaje aquí.</ion-card-subtitle>
+                    <ion-button expand="block" color="primary" routerLink="/tabs/search">Buscar un viaje</ion-button>
+                </ion-card-content>
+            </ion-card>
+        </div>
+    </div>
+
+    <div *ngIf="asSeatRequesterVisible">
+        <app-trip-list [trips]="myTrips.asSeatRequester"></app-trip-list>
+
+        <div *ngIf="myTrips.asSeatRequester.length === 0">
+            <ion-card>
+                <ion-card-content>
+                    <ion-card-subtitle class="mb-20">No tienes solicitudes activas. Puedes empezar por buscar un viaje aquí.</ion-card-subtitle>
+                    <ion-button expand="block" color="primary" routerLink="/tabs/search">Buscar un viaje</ion-button>
+                </ion-card-content>
+            </ion-card>
+        </div>
+    </div>
+</ion-content>

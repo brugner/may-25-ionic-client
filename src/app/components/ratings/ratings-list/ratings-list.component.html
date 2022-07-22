@@ -1,0 +1,52 @@
+<ion-card *ngFor="let rating of ratings" class="ion-text-justify">
+    <ion-card-header>
+        <ion-card-title>
+            <ion-grid>
+                <ion-row class="mb-0-10">
+                    <ion-col>
+                        <small>
+                            <ion-icon name="star"></ion-icon> {{rating.stars}}
+                        </small>
+                    </ion-col>
+                    <ion-col class="ion-text-right"><small>{{moment(rating.createdAt).format('DD/MM/YYYY')}}</small></ion-col>
+                </ion-row>
+                <ion-row class="mb-0-25">
+                    <ion-col>
+                        <ion-title class="small-caps p-0" size="large">{{getRatingTitle(rating)}}</ion-title>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-grid>
+            <ion-row>
+                <ion-col>{{rating.comment}}</ion-col>
+            </ion-row>
+            <ion-row class="ion-text-right">
+                <ion-col>
+                    <ion-chip>
+                        <ion-avatar>
+                            <img [src]="getProfilePicture(rating.fromUser.picture)">
+                        </ion-avatar>
+                        <a routerLink="/profile/{{rating.fromUser.id}}">{{rating.fromUser.name}}</a>
+                    </ion-chip>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="replyExists(rating)">
+                <ion-col>
+                    <p><strong>{{getRepliedTitle(rating)}}</strong></p>
+                    <p>{{rating.reply}}</p>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="canReply(rating)">
+                <ion-col>
+                    <ion-item class="mb-10">
+                        <p>{{getReplyLabel(rating)}}</p>
+                    </ion-item>
+                    <ion-button expand="full" (click)="goToReplyRating(rating)">Responder</ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-card-content>
+</ion-card>

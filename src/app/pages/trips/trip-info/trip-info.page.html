@@ -1,0 +1,125 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title class="small-caps">Información del viaje</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card-content class="ion-text-justify">
+            <ion-card-title>
+                <ion-icon name="person"></ion-icon> Conductor
+            </ion-card-title>
+
+            <ion-item>
+                <ion-avatar slot="start">
+                    <img [src]="getProfilePicture(trip.driver.picture)">
+                </ion-avatar>
+                <a routerLink="/profile/{{trip.driver.id}}">{{trip.driver.name}}</a>
+                <ion-button *ngIf="showRateDriverButton()" (click)="goToRateDriver()" slot="end">Calificar</ion-button>
+                <ion-button slot="end" *ngIf="showChatWithDriverButton" (click)="goToChat()">
+                    <ion-icon name="mail"></ion-icon>
+                </ion-button>
+            </ion-item>
+
+            <ion-card-title class="mt-20">
+                <ion-icon name="business"></ion-icon> Desde
+            </ion-card-title>
+            <ion-text class="text-medium">{{trip.origin.formattedAddress}}</ion-text>
+
+            <ion-card-title class="mt-20">
+                <ion-icon name="business"></ion-icon> Hasta
+            </ion-card-title>
+            <ion-text class="text-medium">{{trip.destination.formattedAddress}}</ion-text>
+
+            <ion-card-title class="mt-20">
+                <ion-icon name="time"></ion-icon> Salida
+            </ion-card-title>
+            <ion-text class="text-medium">{{moment(trip.departure).format('[El] D [de] MMMM [a las] HH:mm')}}</ion-text>
+
+            <ion-card-title class="mt-20">
+                <ion-icon name="document-text"></ion-icon> Descripción
+            </ion-card-title>
+            <ion-text class="text-medium">{{trip.description}}</ion-text>
+
+            <ion-card-title class="mt-20">
+                <ion-icon name="person"></ion-icon> Pasajeros
+            </ion-card-title>
+
+            <ion-item *ngFor="let passenger of trip.passengers">
+                <ion-avatar slot="start">
+                    <img [src]="getProfilePicture(passenger.picture)">
+                </ion-avatar>
+                <a routerLink="/profile/{{passenger.id}}">{{passenger.name}}</a>
+                <ion-button *ngIf="showRatePassengerButton()" slot="end" (click)="goToRatePassenger(passenger)">Calificar</ion-button>
+                <ion-button slot="end" *ngIf="showChatWithPassengerButton" (click)="goToChat(passenger.id)">
+                    <ion-icon name="mail"></ion-icon>
+                </ion-button>
+            </ion-item>
+
+            <ion-item *ngIf="trip.passengers.length === 0">
+                <ion-text class="text-medium">No hay pasajeros</ion-text>
+            </ion-item>
+
+            <ion-card-title class="mt-20">
+                <ion-icon name="pricetags-outline"></ion-icon> Estimados
+            </ion-card-title>
+
+            <ion-list>
+                <ion-item>
+                    <ion-text class="text-medium">Distancia: {{trip.distance | km }}</ion-text>
+                </ion-item>
+                <ion-item>
+                    <ion-text class="text-medium">Duración: {{trip.duration | time}}</ion-text>
+                </ion-item>
+                <ion-item>
+                    <ion-text class="text-medium">Costo: {{trip.cost | currency }}</ion-text>
+                </ion-item>
+                <ion-item>
+                    <ion-text class="text-medium">Costo por pasajero: {{trip.costPerPassenger | currency}}</ion-text>
+                </ion-item>
+            </ion-list>
+
+            <ion-item lines="full">
+                <p>* El costo es una estimación basada en un consumo de 10l/100km de nafta súper y sin contar peajes</p>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+
+    <div *ngIf="!tripDone">
+        <ion-card *ngIf="authUserIsDriver">
+            <ion-card-content class="ion-text-justify">
+                <ion-card-title>
+                    <ion-icon name="document-text"></ion-icon> Solicitudes
+                </ion-card-title>
+
+                <ion-item *ngFor="let request of trip.seatRequests" (click)="manageSeatRequest(request)">
+                    <ion-avatar slot="start">
+                        <img [src]="getProfilePicture(request.passenger.picture)">
+                    </ion-avatar>
+                    {{request.passenger.name}}
+                </ion-item>
+
+                <ion-item *ngIf="trip.seatRequests.length === 0">
+                    <ion-text class="text-medium">No hay solicitudes</ion-text>
+                </ion-item>
+            </ion-card-content>
+
+            <ion-card-content class="ion-text-justify">
+                <ion-button expand="block" color="danger" (click)="cancelTrip()">Cancelar viaje</ion-button>
+            </ion-card-content>
+        </ion-card>
+
+        <ion-card *ngIf="!authUserIsDriver">
+            <ion-card-content class="ion-text-justify">
+                <ion-button expand="block" color="primary" (click)="sendSeatRequest()" *ngIf="showSendSeatRequestButton">Solicitar lugar</ion-button>
+                <ion-label color="danger" *ngIf="showTripFullLabel">No hay más lugares disponibles</ion-label>
+                <ion-button expand="block" color="danger" (click)="cancelSeatRequest()" *ngIf="showCancelSeatRequestButton">Cancelar solicitud</ion-button>
+                <ion-button expand="block" color="danger" (click)="cancelSeat()" *ngIf="showCancelSeatButton">Cancelar lugar</ion-button>
+            </ion-card-content>
+        </ion-card>
+    </div>
+</ion-content>

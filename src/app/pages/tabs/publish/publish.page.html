@@ -1,0 +1,131 @@
+<ion-header>
+    <app-toolbar title="Publicar viaje" showNotificationsButton="true" showBackButton="true"></app-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>A viajar</ion-card-title>
+            <ion-card-subtitle>
+                Completa todos los datos y publica tu viaje.
+            </ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content class="ion-no-padding">
+            <form [formGroup]="tripForm" (ngSubmit)="createTrip()">
+                <ion-item class="ion-margin-bottom">
+                    <ion-chip (click)="pickOrigin()" class="full-width" color="primary">
+                        <ion-icon name="business"></ion-icon>
+                        <ion-label>{{originText}}</ion-label>
+                    </ion-chip>
+                </ion-item>
+
+                <ion-item class="ion-margin-bottom">
+                    <ion-chip (click)="pickDestination()" class="full-width" color="primary">
+                        <ion-icon name="business"></ion-icon>
+                        <ion-label>{{destinationText}}</ion-label>
+                    </ion-chip>
+                </ion-item>
+
+                <ion-item lines="full" class="ion-margin-bottom">
+                    <ion-label>Salida</ion-label>
+                    <ion-datetime [doneText]="'Seleccionar'" [cancelText]="'Cancelar'" displayFormat="D de MMMM, HH:mm" [monthNames]="'enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre'" minuteValues="0,15,30,45" [min]="departureMinDate" [max]="departureMaxDate" formControlName="departure"></ion-datetime>
+                </ion-item>
+
+                <ion-item lines="full" class="ion-margin-bottom">
+                    <ion-label position="floating">Auto</ion-label>
+                    <ion-select placeholder="Seleccionar" cancelText="Cancelar" okText="Seleccionar" interface="action-sheet" formControlName="car">
+                        <ion-select-option *ngFor="let car of userCars" [value]="car.id">{{car.make}} {{car.model}} - {{car.plateNumber}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+
+                <ion-item lines="full" class="ion-margin-bottom">
+                    <ion-grid class="ion-no-padding">
+                        <ion-row>
+                            <ion-col size="6">
+                                <ion-label>¿Cuántos pasajeros?</ion-label>
+                            </ion-col>
+                            <ion-col size="2">
+                                <ion-button size="small" class="mt-0-5" [disabled]="maxPassengers === 1" (click)="decrementMaxPassengers()">
+                                    <ion-icon slot="icon-only" name="remove"></ion-icon>
+                                </ion-button>
+                            </ion-col>
+                            <ion-col size="2">
+                                <label class="pl-20">{{maxPassengers}}</label>
+                            </ion-col>
+                            <ion-col size="2">
+                                <ion-button size="small" class="mt-0-5" [disabled]="maxPassengers === 4" (click)="incrementMaxPassengers()">
+                                    <ion-icon slot="icon-only" name="add"></ion-icon>
+                                </ion-button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+
+                <div class="ion-margin-bottom">
+                    <ion-item lines="full">
+                        <ion-label position="floating">Descripción</ion-label>
+                        <ion-textarea required minlength="20" maxlength="300" rows="2" placeholder="Una breve descripción sobre el viaje" formControlName="description"></ion-textarea>
+                    </ion-item>
+
+                    <ion-text *ngIf="description.invalid && description.errors.minlength" color="danger" class="ion-padding">
+                        Escribe al menos 20 caracteres
+                    </ion-text>
+                </div>
+
+                <ion-item>
+                    <ion-card-title class="mt-20">
+                        Estimados
+                    </ion-card-title>
+                </ion-item>
+
+                <ion-item lines="full">
+                    <ion-label position="floating">Distancia</ion-label>
+                    <ion-input type="text" formControlName="distanceText"></ion-input>
+                    <ion-input type="hidden" formControlName="distance"></ion-input>
+                </ion-item>
+
+                <ion-item lines="full">
+                    <ion-label position="floating">Duración</ion-label>
+                    <ion-input type="text" formControlName="durationText"></ion-input>
+                    <ion-input type="hidden" formControlName="duration"></ion-input>
+                </ion-item>
+
+                <ion-item lines="full">
+                    <ion-label position="floating">Costo sugerido</ion-label>
+                    <ion-input type="text" formControlName="suggestedCost"></ion-input>
+                </ion-item>
+
+                <ion-item lines="full">
+                    <ion-label position="floating">Costo</ion-label>
+                    <ion-input type="number" formControlName="cost" (keyup)="onCostChanged($event)"></ion-input>
+                </ion-item>
+
+                <ion-item lines="full" class="mb-20">
+                    <ion-label position="floating">Costo por pasajero</ion-label>
+                    <ion-input type="text" formControlName="costPerPassenger"></ion-input>
+                </ion-item>
+
+                <ion-item lines="full">
+                    <p>* El costo sugerido es una estimación basada en un consumo de 10l/100km de nafta súper y sin contar peajes</p>
+                </ion-item>
+
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <ion-button expand="block" color="medium" (click)="cancelPublish()">Cancelar</ion-button>
+                        </ion-col>
+                        <ion-col>
+                            <ion-button expand="block" type="submit" [disabled]="!tripForm.valid">Publicar</ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </form>
+
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>

@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title class="small-caps">Notificaciones</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-title class="small-caps" size="large">Notificaciones</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-list class="ion-no-padding">
+        <ion-item *ngFor="let notification of notifications" class="ion-no-padding" (click)="handleNotification(notification)">
+            <div class="notification" [ngClass]="[notification.read ? 'read' : 'unread']">
+                <p class="mb-0"><strong>{{notification.title}}</strong></p>
+                <p class="mt-0 mb-0">{{notification.body}}</p>
+                <p class="mt-0"><small><i>{{moment(notification.createdAt).format('DD/MM/YYYY hh:mm')}}</i></small></p>
+            </div>
+        </ion-item>
+    </ion-list>
+
+</ion-content>

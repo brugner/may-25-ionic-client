@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title class="small-caps">Resultados</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-title class="small-caps" size="large">Resultados</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-card class="ion-text-justify">
+        <ion-card-header>
+            <ion-card-title>{{searchResultTitle}}</ion-card-title>
+            <ion-card-subtitle [innerHTML]="searchResultSubtitle"></ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+            <a href="/alerts/new" class="button-link">Crear alerta</a>
+        </ion-card-content>
+    </ion-card>
+
+    <app-trip-list [trips]="searchResults"></app-trip-list>
+</ion-content>

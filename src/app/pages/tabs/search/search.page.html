@@ -1,0 +1,46 @@
+<ion-header>
+  <app-toolbar title="Buscar viajes" showNotificationsButton="true" showBackButton="true"></app-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title class="small-caps" size="large">Buscar viajes</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card class="mb-30">
+    <ion-card-header>
+      <ion-card-title>Hora de moverse</ion-card-title>
+      <ion-card-subtitle>
+        Completa los filtros de búsqueda y arma la valija.
+      </ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content class="ion-no-padding">
+      <form [formGroup]="searchForm" (ngSubmit)="searchTrips()">
+        <ion-item class="ion-margin-bottom">
+          <ion-label position="stacked">Origen</ion-label>
+          <input #searchOrigin formControlName="searchOrigin" type="text" class="gp-search-bar" (keydown.enter)="$event.preventDefault()" placeholder="¿De dónde sales?" autocorrect="off" autocapitalize="off" spellcheck="off">
+        </ion-item>
+
+        <ion-item class="ion-margin-bottom">
+          <ion-label position="stacked">Destino</ion-label>
+          <input #searchDestination formControlName="searchDestination" type="text" class="gp-search-bar" (keydown.enter)="$event.preventDefault()" placeholder="¿A dónde vas?" autocorrect="off" autocapitalize="off" spellcheck="off">
+        </ion-item>
+
+        <ion-item class="ion-margin-bottom">
+          <ion-label>Salida</ion-label>
+          <ion-datetime [doneText]="'Seleccionar'" [cancelText]="'Cancelar'" displayFormat="D de MMMM" [monthNames]="'enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre'" formControlName="departure" [min]="departureMinDate"></ion-datetime>
+        </ion-item>
+
+
+        <ion-row>
+          <ion-col>
+            <ion-button type="submit" color="primary" expand="block" [disabled]="!searchForm.valid">Buscar</ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

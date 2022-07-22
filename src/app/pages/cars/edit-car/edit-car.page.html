@@ -1,0 +1,160 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="small-caps">Editar auto</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="deleteCar()">
+        <ion-icon name="trash" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title class="small-caps" size="large">Editar auto</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <form [formGroup]="carForm" (ngSubmit)="updateCar()">
+
+    <input type="hidden" formControlName="id">
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Ficha del vehículo</ion-card-title>
+        <ion-card-subtitle class="ion-text-justify">
+          Completa todos los datos, por favor.
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item lines="full" class="ion-margin-bottom">
+          <ion-label position="floating">Patente</ion-label>
+          <ion-input type="text" class="uppercase" required maxlength="7" (keypress)="validateKeyPlateNumber($event)" formControlName="plateNumber" placeholder="ABC123  -  AB123CD"></ion-input>
+        </ion-item>
+
+        <ion-item lines="full" class="ion-margin-bottom">
+          <ion-label position="floating">Marca</ion-label>
+          <ion-select placeholder="Seleccionar" cancelText="Cancelar" okText="Seleccionar" interface="action-sheet" (ionChange)="onMakeChange($event)" formControlName="make">
+            <ion-select-option *ngFor="let make of makes" [value]="make.id">{{make.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item lines="full" class="ion-margin-bottom">
+          <ion-label position="floating">Modelo</ion-label>
+          <ion-select placeholder="Seleccionar" cancelText="Cancelar" okText="Seleccionar" interface="action-sheet" formControlName="model">
+            <ion-select-option *ngFor="let model of models" [value]="model.id">{{model.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item lines="full" class="ion-margin-bottom">
+          <ion-label position="floating">Año</ion-label>
+          <ion-select placeholder="Seleccionar" cancelText="Cancelar" okText="Seleccionar" interface="action-sheet" formControlName="year">
+            <ion-select-option *ngFor="let year of years" value="{{year}}">{{year}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-list>
+          <ion-radio-group formControlName="color">
+            <ion-list-header>
+              <ion-label>
+                Color
+              </ion-label>
+            </ion-list-header>
+
+            <ion-item>
+              <div class="car-color white"></div>
+              <ion-label>
+                Blanco
+              </ion-label>
+              <ion-radio value="1"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <div class="car-color black"></div>
+              <ion-label>Negro</ion-label>
+              <ion-radio value="2"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <div class="car-color gray"></div>
+              <ion-label>Gris</ion-label>
+              <ion-radio value="3"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <div class="car-color dark-gray"></div>
+              <ion-label>Gris oscuro</ion-label>
+              <ion-radio value="4"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <div class="car-color red"></div>
+              <ion-label>Rojo</ion-label>
+              <ion-radio value="5"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <div class="car-color dark-red"></div>
+              <ion-label>Rojo oscuro</ion-label>
+              <ion-radio value="6"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <div class="car-color blue"></div>
+              <ion-label>Azul</ion-label>
+              <ion-radio value="7"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <div class="car-color dark-blue"></div>
+              <ion-label>Azul oscuro</ion-label>
+              <ion-radio value="8"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <div class="car-color yellow"></div>
+              <ion-label>Amarillo</ion-label>
+              <ion-radio value="9"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <div class="car-color golden"></div>
+              <ion-label>Dorado</ion-label>
+              <ion-radio value="10"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <div class="car-color green"></div>
+              <ion-label>Verde</ion-label>
+              <ion-radio value="11"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <div class="car-color dark-green"></div>
+              <ion-label>Verde oscuro</ion-label>
+              <ion-radio value="12"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <div class="car-color orange"></div>
+              <ion-label>Naranja</ion-label>
+              <ion-radio value="13"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <div class="car-color brown"></div>
+              <ion-label>Marrón</ion-label>
+              <ion-radio value="14"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </ion-list>
+
+        <ion-button expand="block" type="submit" [disabled]="!carForm.valid">Guardar</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </form>
+</ion-content>

@@ -1,0 +1,43 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title class="small-caps">Alerta</ion-title>
+        <ion-buttons slot="primary">
+            <ion-button (click)="deleteAlert()">
+                <ion-icon name="trash" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-title class="small-caps" size="large">Alerta</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>Detalle</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-item lines="full" class="ion-margin-bottom">
+                <ion-label position="stacked">Origen</ion-label>
+                <ion-input type="text" disabled>{{alert.originFormattedAddress}}</ion-input>
+            </ion-item>
+
+            <ion-item lines="full" class="ion-margin-bottom">
+                <ion-label position="stacked">Destino</ion-label>
+                <ion-input type="text" disabled>{{alert.destinationFormattedAddress}}</ion-input>
+            </ion-item>
+
+            <ion-item lines="full" class="ion-margin-bottom">
+                <ion-label position="stacked">Válida hasta</ion-label>
+                <ion-input type="text" disabled>{{moment(alert.validUntil).format('DD/MM/YYYY')}}</ion-input>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

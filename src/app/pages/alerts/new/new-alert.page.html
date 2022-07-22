@@ -1,0 +1,41 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title class="small-caps">Crear alerta</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-title class="small-caps" size="large">Crear alerta</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <form [formGroup]="alertForm" (ngSubmit)="createAlert()">
+
+        <ion-card>
+            <ion-card-header>
+                <ion-card-title>Alerta</ion-card-title>
+                <ion-card-subtitle class="ion-text-justify">
+                    Selecciona el origen y el destino, por favor. Ten en cuenta que las alertas expiran después de 30 días y que buscan en un radio de 10km alrededor del origen y destino.
+                </ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-item class="ion-margin-bottom">
+                    <ion-label position="stacked">Origen</ion-label>
+                    <input #searchOrigin formControlName="searchOrigin" type="text" class="gp-search-bar" (keydown.enter)="$event.preventDefault()" placeholder="¿De dónde saldrías?" autocorrect="off" autocapitalize="off" spellcheck="off">
+                </ion-item>
+
+                <ion-item class="ion-margin-bottom">
+                    <ion-label position="stacked">Destino</ion-label>
+                    <input #searchDestination formControlName="searchDestination" type="text" class="gp-search-bar" (keydown.enter)="$event.preventDefault()" placeholder="¿A dónde te gustaría ir?" autocorrect="off" autocapitalize="off" spellcheck="off">
+                </ion-item>
+
+                <ion-button expand="block" type="submit" [disabled]="!alertForm.valid">Crear</ion-button>
+            </ion-card-content>
+        </ion-card>
+    </form>
+</ion-content>

@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title class="small-caps">Gracias!</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-title class="small-caps" size="large">Gracias!</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>Gracias por calificar</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <p class="ion-text-justify">Buenísimo! Calificar aumenta la confianza de la comunidad y mejora la experiencia de todos los usuarios.</p>
+            <ion-button expand="block" class="mt-20" (click)="goToTripInfo()">Volver al viaje</ion-button>
+            <ion-button expand="block" class="mt-20" routerLink="/">Ir a inicio</ion-button>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

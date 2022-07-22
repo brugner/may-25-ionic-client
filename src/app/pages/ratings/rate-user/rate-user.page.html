@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title class="small-caps">Calificar</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-title class="small-caps" size="large">Calificar</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>Según tu experiencia</ion-card-title>
+            <ion-card-subtitle>Califica a {{toUserName}} como {{getUserTypeName()}}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+            <form [formGroup]="ratingForm" (ngSubmit)="rateUser()">
+                <ion-item lines="full" class="ion-margin-bottom">
+                    <ion-label>Calificación</ion-label>
+                    <star-rating [value]='0' [totalstars]='5' [size]='"32px"' [checkedcolor]='"gold"' [uncheckedcolor]='"gray"' (rate)="onStarsChanged($event)"></star-rating>
+                </ion-item>
+
+                <ion-item lines="full">
+                    <ion-label position="floating">Comentario</ion-label>
+                    <ion-textarea minlength="30" maxlength="500" rows="3" placeholder="Cuéntale a la comunidad como fue tu experiencia con este usuario" formControlName="comment"></ion-textarea>
+                </ion-item>
+
+                <ion-button type="submit" expand="block" class="mt-20" [disabled]="!ratingForm.valid">Calificar</ion-button>
+            </form>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

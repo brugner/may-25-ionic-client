@@ -1,0 +1,18 @@
+<ion-content class="">
+    <div class="fullheight xc background">
+        <ion-grid>
+            <ion-row>
+                <ion-col align-self-center>
+                    <div class="title">
+                        <h1>{{ title }}</h1>
+                        <h4>{{ subtitle }}</h4>
+                    </div>
+
+                    <ion-button [routerLink]="['register']" expand="full" color="primary">Crear cuenta</ion-button>
+                    <p class="ion-text-center white">— o —</p>
+                    <ion-button [routerLink]="['login']" expand="full" color="secondary">Entrar</ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</ion-content>

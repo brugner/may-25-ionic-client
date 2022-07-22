@@ -1,0 +1,200 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title class="small-caps">Cuentanos un poco más</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-title class="small-caps" size="large">Cuentanos un poco más</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <form [formGroup]="profileForm">
+        <ion-card *ngIf="cards[0]">
+            <ion-card-header>
+                <ion-card-title>Empecemos por lo básico</ion-card-title>
+                <ion-card-subtitle class="ion-text-justify">
+                    ¿Cómo te llamas?
+                </ion-card-subtitle>
+            </ion-card-header>
+
+            <ion-card-content>
+                <ion-item lines="full" class="ion-margin-bottom">
+                    <ion-label position="floating">Nombre</ion-label>
+                    <ion-input type="text" maxlength="50" formControlName="firstName"></ion-input>
+                </ion-item>
+
+                <ion-item lines="full" class="ion-margin-bottom">
+                    <ion-label position="floating">Apellido</ion-label>
+                    <ion-input type="text" maxlength="50" formControlName="lastName"></ion-input>
+                </ion-item>
+
+                <ion-grid no-padding>
+                    <ion-row>
+                        <ion-col>
+                            <ion-button expand="block" fill="outline" disabled>Anterior</ion-button>
+                        </ion-col>
+                        <ion-col>
+                            <ion-button expand="block" (click)="moveToCard(1)">Siguiente</ion-button>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-12 class="ion-text-center">
+                            <a (click)="done()">Ahora no, más tarde..</a>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+
+        <ion-card *ngIf="cards[1]">
+            <ion-card-header>
+                <ion-card-title>Un poco más</ion-card-title>
+                <ion-card-subtitle class="ion-text-justify">
+                    Más completo tu perfil, más posibilidad de encontrar compañeros de viaje.
+                </ion-card-subtitle>
+            </ion-card-header>
+
+            <ion-card-content>
+                <ion-item lines="full" class="ion-margin-bottom">
+                    <ion-label position="floating">Fecha de nacimiento</ion-label>
+                    <ion-datetime [doneText]="'Seleccionar'" [cancelText]="'Cancelar'" displayFormat="D de MMMM de YYYY" [max]="maxBirthdayDate" [monthNames]="'enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre'" placeholder="Toca para elegir" formControlName="birthday"></ion-datetime>
+                </ion-item>
+
+                <ion-item lines="full" class="ion-margin-bottom">
+                    <ion-label position="floating">Género</ion-label>
+                    <ion-select placeholder="Seleccionar" cancelText="Cancelar" okText="Seleccionar" interface="action-sheet" formControlName="gender">
+                        <ion-select-option value="M">Masculino</ion-select-option>
+                        <ion-select-option value="F">Femenino</ion-select-option>
+                        <ion-select-option value="O">Otro</ion-select-option>
+                        <ion-select-option value="N">Prefiero no decir</ion-select-option>
+                    </ion-select>
+                </ion-item>
+
+                <div class="ion-margin-bottom">
+                    <ion-item lines="full">
+                        <ion-label position="floating">Bio</ion-label>
+                        <ion-textarea minlength="100" maxlength="300" rows="3" placeholder="Escribe una breve presentación sobre ti" formControlName="bio"></ion-textarea>
+                    </ion-item>
+                </div>
+
+                <ion-grid no-padding>
+                    <ion-row>
+                        <ion-col>
+                            <ion-button expand="block" fill="outline" (click)="moveToCard(0)">Anterior</ion-button>
+                        </ion-col>
+                        <ion-col>
+                            <ion-button expand="block" (click)="moveToCard(2)">Siguiente</ion-button>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-12 class="ion-text-center">
+                            <a (click)="done()">Ahora no, más tarde..</a>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+
+        <ion-card *ngIf="cards[2]">
+            <ion-card-header>
+                <ion-card-title>Lo último</ion-card-title>
+                <ion-card-subtitle class="ion-text-justify">
+                    ¿Te gustar conversar o prefieres la música? ¿Te molesta que fumen? ¿Mascotas arriba del auto?
+                </ion-card-subtitle>
+            </ion-card-header>
+
+            <ion-card-content>
+                <ion-item>
+                    <ion-text>Conversar</ion-text>
+                </ion-item>
+
+                <ion-item lines="full" class="mb-20">
+                    <ion-segment value="5" formControlName="talk">
+                        <ion-segment-button value="1">
+                            <ion-icon name="heart-dislike"></ion-icon>
+                        </ion-segment-button>
+                        <ion-segment-button value="5">
+                            <ion-icon name="heart-half"></ion-icon>
+                        </ion-segment-button>
+                        <ion-segment-button value="10">
+                            <ion-icon name="heart"></ion-icon>
+                        </ion-segment-button>
+                    </ion-segment>
+                </ion-item>
+
+                <ion-item>
+                    <ion-text>Música</ion-text>
+                </ion-item>
+
+                <ion-item lines="full" class="mb-20">
+                    <ion-segment value="5" formControlName="music">
+                        <ion-segment-button value="1">
+                            <ion-icon name="heart-dislike"></ion-icon>
+                        </ion-segment-button>
+                        <ion-segment-button value="5">
+                            <ion-icon name="heart-half"></ion-icon>
+                        </ion-segment-button>
+                        <ion-segment-button value="10">
+                            <ion-icon name="heart"></ion-icon>
+                        </ion-segment-button>
+                    </ion-segment>
+                </ion-item>
+
+                <ion-item>
+                    <ion-text>Fumar</ion-text>
+                </ion-item>
+
+                <ion-item lines="full" class="mb-20">
+                    <ion-segment value="5" formControlName="smoking">
+                        <ion-segment-button value="1">
+                            <ion-icon name="heart-dislike"></ion-icon>
+                        </ion-segment-button>
+                        <ion-segment-button value="5">
+                            <ion-icon name="heart-half"></ion-icon>
+                        </ion-segment-button>
+                        <ion-segment-button value="10">
+                            <ion-icon name="heart"></ion-icon>
+                        </ion-segment-button>
+                    </ion-segment>
+                </ion-item>
+
+                <ion-item>
+                    <ion-text>Mascotas</ion-text>
+                </ion-item>
+
+                <ion-item lines="full" class="mb-20">
+                    <ion-segment value="5" formControlName="pets">
+                        <ion-segment-button value="1">
+                            <ion-icon name="heart-dislike"></ion-icon>
+                        </ion-segment-button>
+                        <ion-segment-button value="5">
+                            <ion-icon name="heart-half"></ion-icon>
+                        </ion-segment-button>
+                        <ion-segment-button value="10">
+                            <ion-icon name="heart"></ion-icon>
+                        </ion-segment-button>
+                    </ion-segment>
+                </ion-item>
+
+                <ion-grid no-padding>
+                    <ion-row>
+                        <ion-col>
+                            <ion-button expand="block" fill="outline" (click)="moveToCard(1)">Anterior</ion-button>
+                        </ion-col>
+                        <ion-col>
+                            <ion-button expand="block" (click)="done()">Listo</ion-button>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-12 class="ion-text-center">
+                            <a (click)="done()">Ahora no, más tarde..</a>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+    </form>
+</ion-content>

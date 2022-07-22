@@ -1,0 +1,21 @@
+ion-grid {
+    height: 100%;
+}
+
+ion-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.title {
+    text-align: center;
+    font-variant: small-caps;
+    margin-bottom: 150px;
+
+    h1 {
+        font-size: xxx-large;
+        font-weight: bold;
+    }
+}

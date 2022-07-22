@@ -1,0 +1,22 @@
+<ion-card *ngFor="let trip of trips" class="ion-margin-bottom">
+    <ion-card-content class="ion-text-justify">
+        <ion-card-title>
+            <ion-icon name="business"></ion-icon> Desde
+        </ion-card-title>
+        <ion-text class="text-medium">{{trip.origin}}</ion-text>
+
+        <ion-card-title class="mt-20">
+            <ion-icon name="business"></ion-icon> Hasta
+        </ion-card-title>
+        <ion-text class="text-medium">{{trip.destination}}</ion-text>
+
+        <ion-card-title class="mt-20">
+            <ion-icon name="time"></ion-icon> Salida
+        </ion-card-title>
+        <ion-text class="text-medium">{{moment(trip.departure).format('[El] D [de] MMMM [a las] HH:mm')}}</ion-text>
+
+        <div class="view-trip">
+            <ion-button routerLink="/trips/{{trip.id}}/info" expand="block" color="tertiary">Ver viaje</ion-button>
+        </div>
+    </ion-card-content>
+</ion-card>
