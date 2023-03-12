@@ -5,7 +5,7 @@
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider && ng serve -o",
     "build": "ng build",
     "lint": "ng lint",
     "resources": "capacitor-resources -p android && node resources.js"
